@@ -1,0 +1,410 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Shop page{% endblock %}
+
+ {% block content %}
+ <!-- Page title -->
+    	<div class="page-title parallax parallax1">
+    		<div class="container">
+    			<div class="row">
+    				<div class="col-md-12">
+    					<div class="page-title-heading">
+    						<h1 class="title">Woolen T-Shirt</h1>
+    					</div><!-- /.page-title-heading -->
+    					<div class="breadcrumbs">
+    						<ul>
+    							<li><a href="index.html">Home</a></li>
+    							<li><a href="shop-3col.html">Shop</a></li>
+                                <li><a href="shop-detail-zoom.html">Products</a></li>
+    						</ul>
+    					</div><!-- /.breadcrumbs -->
+    				</div><!-- /.col-md-12 -->
+    			</div><!-- /.row -->
+    		</div><!-- /.container -->
+    	</div><!-- /.page-title -->
+
+    	<section class="flat-row main-shop shop-detail style-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                    	<div class="wrap-flexslider">
+                            <div class="inner padding-top-5">
+                                <div class="flexslider style-2 has-relative">
+                                    <ul class="slides">
+                                        {% if product.image %}
+                                        <li data-thumb="{{product.thumbnail.url}}">
+                                            <img src="{{product.image.url}}" alt="Image">
+                                            <div class="flat-icon style-1">
+                                                <a href="{{product.image.url}}" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                            </div>                                            
+                                        </li>
+                                        {% endif %}
+                                        {% if product.image_1 %}
+                                        <li data-thumb="{{product.thumbnail_1.url}}">
+                                            <img src="{{product.image_1.url}}" alt="Image">
+                                            <div class="flat-icon style-1">
+                                                <a href="{{product.image_1.url}}" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                            </div>
+                                        </li>
+                                        {% endif %}
+                                        {% if product.image_2 %}
+                                        <li data-thumb="{{product.thumbnail_2.url}}">
+                                            <img src="{{product.image_2.url}}" alt="Image">
+                                            <div class="flat-icon style-1">
+                                                <a href="{{product.image_2.url}}" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                            </div>
+                                        </li> 
+                                        {% endif %}                                       
+                                    </ul>                           
+                                </div><!-- /.flexslider -->
+                            </div>
+                        </div>                      
+                    </div><!-- /.col-md-6 -->
+
+                    <div class="col-md-6">
+                        <div class="divider h0"></div>
+                        <div class="product-detail">
+                            <div class="inner">
+                                <div class="content-detail">
+                                    <h2 class="product-title">{{product.name}}</h2>
+                                    <div class="flat-star style-1">
+                                        <i class="fa fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review  < 1 %}-half-o{% endif %}"></i>
+                                        <i class="fa fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review  < 2 %}-half-o{% endif %}"></i>
+                                        <i class="fa fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review  < 3 %}-half-o{% endif %}"></i>
+                                        <i class="fa fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review  < 4 %}-half-o{% endif %}"></i>
+                                        <i class="fa fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review  < 5 %}-half-o{% endif %}"></i>
+                                        <span>({{product.count_reviews}})</span>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p> 
+                                    <div class="price margin-top-30">
+                                        <del>
+                                            {% if product.on_sale %}
+                                            <span class="regular">${{product.old_price}}</span>
+                                            {% endif %}
+                                        </del>
+                                        <ins class="no-padding"><span class="amount">${{product.price}}</span></ins>
+                                    </div>
+                                    
+                                        <div class="size">
+                                            <span>Size:</span>
+                                            <ul>
+                                                {% for i in product.variation_set.sizes %}
+                                                <li id='{{i.variation_value}}'><button class="m-0 p-2" name='size' value='{{i.variation_value}}' onclick="toggleSelectionSizes('{{i.variation_value}}')" id='{{i.variation_value}}'>{{i.variation_value}}</button></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div> 
+                                        <div class="product-color">
+                                            <span>Colors:</span>
+                                            <ul class="flat-color-list" >
+                                                {% for i in product.variation_set.colors %}
+                                                <li id='{{i.variation_value}}'><button type='text' class="pink colored  m-0 p-2" value="{{i.variation_value}}" onclick="toggleSelectionColors('{{i.variation_value}}')" ></button></li>
+                                                {% endfor %}
+                          
+                                            </ul> 
+                          
+                                        </div>
+                                        <form class='add'> 
+                                            <select name="color" id="id_colors" multiple hidden>
+                                                {% for i in product.variation_set.colors %}
+                                                <option value="{{i.variation_value}}"></option>
+                                                {% endfor %}
+                                                
+                                                <!-- Add other options here -->
+                                            </select>  
+                                            <select name="size" id="id_sizes" multiple hidden>
+                                                {% for i in product.variation_set.sizes %}
+                                                <option value="{{i.variation_value}}"></option>
+                                               
+                                                {% endfor %}
+                                                <!-- Add other options here -->
+                                            </select>  
+                                    <div class="product-quantity margin-top-44">
+                                       
+                                        <div class="quantity">
+                                            
+                                            <input type="text" value="1" name="quantity-number" class="quantity-number">
+                                            <span class="inc quantity-button">+</span>
+                                            <span class="dec quantity-button">-</span>
+                                        </div>
+                                       
+                                        <div class="add-to-cart">
+                                           {% comment %} <a href="#">ADD TO CART</a>  {% endcomment %}
+                                           <input type='hidden' value='{{product.id}}' name='id'>
+                                           <input type='hidden' value="{{product.name}}" name='name'>
+                                           <a><input   type='submit' value='ADD TO CART'style='width:auto;'></a>
+                                        </div>
+                                        <div class="box-like">
+                                            <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                                        </div>
+                                       
+                                    </div>  
+                                    </form>                                 
+                                    <ul class="product-infor style-1 margin-top-32">
+                                        <li><span>100% cotton</span></li>
+                                        <li><span>6 months warranty</span></li>
+                                        <li><span>Free Shipping</span></li>
+                                        <li><span>High Quality</span></li>
+                                    </ul>
+                                    <div class="product-categories margin-top-22">
+                                        <span>Categories: </span><a href="#">{{product.category}} .</a>
+                                    </div>
+                                    <div class="product-tags">
+                                        <span>Tags: </span>
+                                        {% if product.tags %}
+                                    {% for tag in product.tags.all %}
+                                    <a href="#">{{tag.name}}{% if tag != product.tags.last %},{% endif %}</a>
+                                    {% endfor %}
+                                    {% endif %}
+                                    </div>                                                                     
+                                    <ul class="flat-socials margin-top-15">
+                                        
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!-- /.product-detail -->
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section><!-- /.flat-row -->
+
+        <section class="flat-row shop-detail-content">
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+        				<div class="flat-tabs style-1 has-border">
+                            {% include "includes/messages.html" %}
+        					<div class="inner">
+        						<ul class="menu-tab">
+                                    <li class="active">Reviews</li>
+        							<li >Description</li>
+        							<li>Additional information</li>
+        							
+        						</ul>
+        						<div class="content-tab">
+                                    <div class="content-inner">
+                                        <div class="inner max-width-83 padding-top-33">
+                                            <ol class="review-list">
+                                                {% for review in reviews %}
+                                                <li class="review">
+                                                    <div class="thumb">
+
+                                                        <img src="{{review.profile_image}}" alt="Image">
+
+                                                        
+                                                    </div>
+                                                    <div class="text-wrap">
+                                                        <div class="review-meta">
+                                                            <h5 class="name">{{review.user.full_name}}</h5>
+                                                            <h6 class="card-title">{{review.subject}}</h6>
+
+                                                            <div class="flat-star style-1">
+                                                               
+                                                                <i class="fa fa-star{% if review.rating < 0.5 %}-o{% elif review.rating >= 0.5 and review.rating  < 1 %}-half-o{% endif %}"></i>
+                                                                <i class="fa fa-star{% if review.rating < 1.5 %}-o{% elif review.rating >= 1.5 and review.rating  < 2 %}-half-o{% endif %}"></i>
+                                                                <i class="fa fa-star{% if review.rating < 2.5 %}-o{% elif review.rating >= 2.5 and review.rating  < 3 %}-half-o{% endif %}"></i>
+                                                                <i class="fa fa-star{% if review.rating < 3.5 %}-o{% elif review.rating >= 3.5 and review.rating  < 4 %}-half-o{% endif %}"></i>
+                                                                <i class="fa fa-star{% if review.rating < 4.5 %}-o{% elif review.rating >= 4.5 and review.rating  < 5 %}-half-o{% endif %}"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-text">
+                                                            <p>{{review.review}}</p>
+                                                        </div>
+                                                    </div>
+                                                </li><!--  /.review    -->
+                                                {% endfor %}<br>
+                                                                  
+                                            </ol><!-- /.review-list -->
+                                            <div class="comment-respond review-respond" id="respond">
+                                                <div class="comment-reply-title margin-bottom-14">
+                                                    <h5>Write a review</h5>
+                                                    <p>Your email address will not be published. Required fields are marked *</p>
+                                                </div>
+                                                <form novalidate="" class="comment-form review-form" id="commentform" method='POST' action="{% url 'submit_review' product.id %}">
+                                                   {% csrf_token %}
+                                                    <p class="flat-star style-2">
+                                                        <label>Rating*:</label> 
+                                                        <div class='rate'>
+                                                            <input type='radio' name='rating' id='rating10' value='5' required /><label for='rating10'
+                                                              title='5'></label>
+                                                            <input type='radio' name='rating' id='rating9' value='4.5' required /><label for='rating9' class='half'
+                                                              title='4.5'></label>
+                                                            <input type='radio' name='rating' id='rating8' value='4' required /><label for='rating8'
+                                                              title='4'></label>
+                                                            <input type='radio' name='rating' id='rating7' value='3.5' required /><label for='rating7' class='half'
+                                                              title='3.5'></label>
+                                                            <input type='radio' name='rating' id='rating6' value='3' required /><label for='rating6'
+                                                              title='3'></label>
+                                                            <input type='radio' name='rating' id='rating5' value='2.5' required /><label for='rating5' class='half'
+                                                              title='2.5'></label>
+                                                            <input type='radio' name='rating' id='rating4' value='2' required /><label for='rating4'
+                                                              title='2'></label>
+                                                            <input type='radio' name='rating' id='rating3' value='1.5' required /><label for='rating3' class='half'
+                                                              title='1.5'></label>
+                                                            <input type='radio' name='rating' id='rating2' value='1' required /><label for='rating2'
+                                                              title='1'></label>
+                                                            <input type='radio' name='rating' id='rating1' value='0.5' required /><label for='rating1' class='half'
+                                                              title='0.5'></label>
+                                              
+                                                          </div>
+
+                                                    </p>
+                                                    <p class="comment-form-comment"> 
+                                                        <label>Review title*</label>                                       
+                                                        <input type="text" size="30"  name='subject' id="email">
+                                                    </p>
+                                                    <p class="comment-form-comment">
+                                                        <label>Review*</label>
+                                                        <textarea class="" tabindex="4"  name='review' required> </textarea>                          
+                                                    </p>
+                                                    <p class="comment-form-notify clearfix">
+                                                        <input type="checkbox" value='on' name='check-notify' id="check-notify"> <label for="check-notify">Notify me of new posts by email</label>
+                                                    </p>                                                        
+                                                    <p class="form-submit">    {% if user.is_authenticated %}           
+                                                        <button class="comment-submit">Submit</button>
+                                                        {% else %}
+                                                        <p>you have to sign in before submitting a review.</p>
+                                                        {% endif %}  
+                                                    </p>
+                                                </form>
+                                            </div><!-- /.comment-respond -->                                            
+                                        </div>        								
+        							</div><!-- /.content-inner -->
+        							<div class="content-inner">
+    									<div class="inner max-width-77 padding-top-33 padding-left-7">
+                                            <p>Fashion has always been so temporary and uncertain. You can’t keep up with it.  This social phenomenon is very whimsical, thus we as the consumers always try to stay in touch with all the latest fashion tendencies. Obviously there is nothing wrong about it because fashion satisfies our willingness to be attractive. And also fashion is the detector of prosperity and social rank. So, our natural desire to wear fashionable clothes has many reasons such as historical, social and others. Therefore being fashionable costs a lot of money. But nowadays fashion is not such unavailable as it was a couple of centuries ago. We are lucky to have an opportunity to buy qualitative, fashionable and affordable clothes.</p> 
+                                            <p class="margin-top-11 line-height-24">So, with the great pleasure we are offering you our goods, and we are sure that only our choices of garments will suit you best. Our product is universal because it suits different customers with different demands. We assure you it is really important, it shows that our good has such capacity as flexibility. And it is good for you because as we all know people change their claims with the course of time, and our good will be actual for a long time. The main reason of buying our clothes is the unique combination of fair price, extraordinary style and perfect quality.  Here you can find garments of all sizes, colors, styles and fabrics.</p>                          
+                                        </div>	        								
+        							</div><!-- /.content-inner -->
+        							<div class="content-inner">
+                                        <div class="inner max-width-40">
+                                            <table>
+                                                <tr>
+                                                    <td>Weight</td>
+                                                    <td>1.73 kg</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Dimensions</td>
+                                                    <td>100 x 37 x 100 cm</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Materials</td>
+                                                    <td>80% cotton, 20% linen</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Size</td>
+                                                    <td>One Size, XL, L, M, S</td>
+                                                </tr>                       
+                                            </table>
+                                        </div>        								
+        							</div><!-- /.content-inner -->
+        							
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </section><!-- /.shop-detail-content -->
+
+        <section class="flat-row shop-related">
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-md-12">
+        				<div class="title-section margin-bottom-55">
+        					<h2 class="title">Related Products</h2>
+        				</div>
+
+        				<div class="product-content product-fourcolumn clearfix">
+                            <ul class="product style2">
+                              {% for product in related_products %}
+                                <li class="product-item p-1">
+                                    <div class="product-thumb clearfix">
+                                        <a href="#" class="product-thumb">
+                                            <img src="{{product.image.url}}" alt="image">
+                                        </a>
+                                        {% if product.is_new %}
+                                        <span class="new">New</span>
+                                        {% endif %}
+                                        {% if product.on_sale %}
+                                        <span class="new sale">Sale</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-info clearfix"><br>
+                                        <span class="product-title">{{product.name}}</span>
+                                        <div class="price">
+                                            <ins>
+                                              <span class="amount">${{product.price}}</span>
+                                            </ins>
+                                                {% if product.on_sale %}
+                                                <del>
+                                                    <span class="regular">${{product.old_price}}</span>
+                                                </del>
+                                                
+                                                {% endif %}
+                                            
+                                        </div>
+                                        <ul class="flat-color-list">
+                                            <li>
+                                                <a href="#" class="red"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="blue"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="black"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="add-to-cart text-center">
+                                        <a href="#">ADD TO CART</a>
+                                    </div>
+                                    <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                                </li>    
+                                {% endfor %}                            
+                            </ul><!-- /.product -->
+                        </div><!-- /.product-content -->
+        			</div>
+        		</div><!-- /.row -->
+        	</div>
+        </section>
+
+		<section class="flat-row mail-chimp">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="text">
+							<h3>Sign up for Send Newsletter</h3>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="subscribe clearfix">
+							<form action="#" method="post" accept-charset="utf-8" id="subscribe-form">
+								<div class="subscribe-content">
+									<div class="input">
+										<input type="email" name="subscribe-email" placeholder="Your Email">
+									</div>
+									<div class="button">
+										<button type="button">SUBCRIBE</button>
+									</div>
+								</div>
+							</form>
+							<ul class="flat-social">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-google"></i></a></li>
+								<li><a href="#"><i class="fa fa-behance"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+							</ul><!-- /.flat-social -->
+						</div><!-- /.subscribe -->
+					</div>
+				</div>
+			</div>
+		</section><!-- /.mail-chimp -->
+        {% include "includes/js_block.html" %} 
+   
+ {% endblock %}

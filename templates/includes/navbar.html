@@ -1,0 +1,136 @@
+{% load static%}
+<div id="site-header-wrap">
+    <!-- Header -->
+    <header id="header" class="header header-container clearfix">
+        <div class="container clearfix" id="site-header-inner">
+            <div id="logo" class="logo float-left wow bounceInDown" data-wow-delay="2s" data-wow-duration="6s"
+            data-wow-iteration="20">
+                <a href="{% url 'home' %}" title="logo">
+                    <img src="{% static 'images/logo@2x.png' %}" alt="image" width="107" height="24" data-retina="{% static 'images/logo.png' %}" data-width="107" data-height="24">
+                </a>
+            </div><!-- /.logo -->
+            <div class="mobile-button"><span></span></div>
+            <ul class="menu-extra">
+                <li class="box-search">
+                    <a class="icon_search header-search-icon" href="#"></a>
+                    <form role="search" method="GET" class="header-search-form" action="{% url 'search' %}">
+                        <input type="text" value="" name="keyword" class="header-search-field" placeholder="Search...">
+                        <button type="submit" class="header-search-submit" title="Search">Search</button>
+                    </form>
+                </li>
+                <!-- <li class="box-login">
+                    <a class="icon_login" href="#"></a>
+                    
+                </li> -->
+                <li class="box-login box-cart nav-top-cart-wrapper">
+                    <a class="icon_login" href="{% url 'dashboard' %}"></a>
+                    <div class="nav-shop-cart">
+                        <div class="widget_shopping_cart_content" >
+                            <div class="woocommerce-min-cart-wrap" >
+                                <ul class="woocommerce-mini-cart cart_list product_list_widget " style="width: 100px;">
+                                    {% if not user.is_authenticated %}
+                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <div onclick="location.href='{% url 'login' %}'" style="cursor:pointer;">Sign in</div>
+                                        
+                                    </li>
+                                    <li class="woocommerce-mini-cart-item mini_cart_item "  >
+                                        <div onclick="location.href='{% url 'register' %}'" style="cursor:pointer;">Register</div>
+                                        
+                                    </li>
+                                    {% else %}
+                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <div onclick="location.href='{% url 'logout' %}'" style="cursor:pointer;">Log out</div>
+                                        
+                                    </li>
+                                    <li class="woocommerce-mini-cart-item mini_cart_item "  >
+                                        <div onclick="location.href='{% url 'dashboard' %}'" style="cursor:pointer;">Dashboard</div>
+                                        
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.widget_shopping_cart_content -->
+                        </div>
+                    </div><!-- /.nav-shop-cart -->
+                </li>
+                <li class="box-cart nav-top-cart-wrapper">
+                    <a class="icon_cart nav-cart-trigger active" href="{% url 'cart' %}">
+
+                        <span id='counter'></span>
+         
+
+    
+                    </a>
+                    <div class="nav-shop-cart">
+                        <div class="widget_shopping_cart_content">
+                            <div class="woocommerce-min-cart-wrap" id="car">
+                                <ul class="woocommerce-mini-cart cart_list product_list_widget m-0">
+                                    
+                                    {% if cart_items %}
+                                    <li class="woocommerce-mini-cart-item mini_cart_item " >
+                                        <small class='float-left text-danger'>Product name </small>
+                                        <small class='float-right text-danger'>Qty </small>
+                                    </li>
+                                    {% for item  in cart_items %}
+                                    <div class="divider py-1 bg-dark"><hr></div>
+                                    <li class="woocommerce-mini-cart-item mini_cart_item" width='max-width'>
+                                        <small class='float-left'>{{item.product.name}}</small>
+                                        <small class='float-right'>{{item.quantity}}</small>
+                                    </li>
+                                   
+                                    {% endfor %}
+                                    <div class="divider py-1 bg-dark"><hr></div>
+                                    <li class="woocommerce-mini-cart-item mini_cart_item " >
+                                        <div class="float-left mb-4" onclick="location.href='{% url 'cart' %}'" style="cursor: pointer;display:inline-block; width:12rem;" >
+                                       
+                                              <i class='fa fa-shopping-cart text-danger float-left' style="font-size: 1.5rem;"></i>
+                                     
+                                              <p class="float-right text-danger">    Go to cart</p>
+                                        <div>
+
+                                    </li>
+                                    {% else %}
+                                    <li class="woocommerce-mini-cart-item mini_cart_item">
+                                        <span>No Items in Shopping Cart</span>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.widget_shopping_cart_content -->
+                        </div>
+                    </div><!-- /.nav-shop-cart -->
+                </li>
+            </ul><!-- /.menu-extra -->
+            <div class="nav-wrap">
+                <nav id="mainnav" class="mainnav">
+                    <ul class="menu">
+                        <li class="{% if '/' == request.path %}active{% endif %}">
+                            <a href="{% url 'home' %}">HOME</a>
+                        </li>
+                        <li class="{% if '/store/' in request.path %}active{% endif %}">
+                            <a href="{% url 'shop' %}">SHOP</a>
+                           
+                        </li>
+                        <li>
+                            <a href="coming-soon.html">PAGE</a>
+                        </li>
+                        <li >
+                            <a href="blog-list.html">BLOG</a>
+                            
+                        </li>
+                        <li>
+                            <a href="contact.html">CONTACT</a>
+                            
+                           
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <div class="subtitle">Welcome {{user.first_name}}</div>
+                            
+                           
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav><!-- /.mainnav -->
+            </div><!-- /.nav-wrap -->
+        </div><!-- /.container-fluid -->
+    </header><!-- /header -->
+</div><!-- /#site-header-wrap -->

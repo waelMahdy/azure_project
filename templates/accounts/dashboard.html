@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Dashboard page{%endblock %} 
+{% block content %}
+
+<section class="section-conten padding-y bg margin-bottom-50">
+   
+    <div class="container margin-top-49 ">
+      {% include "includes/messages.html" %}
+      <div class="row">
+       {% include "includes/dashboard_sidebar.html" %}
+        <main class="col-md-9">
+          <article class="card">
+            <header class="card-header">
+              <strong class="d-inline-block mr-3">User name:</strong> 
+              <span>{{userprofile.user.full_name | capfirst}}</span>
+            </header>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Total orders</h5>
+                      <h6>{{orders_count}}</h6>
+                      <a href="#" class="btn btn-facebook">View order</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      {% if   userprofile.profile_picture  %}
+                      <img src="{{userprofile.profile_picture.url}}" alt="Profile picture" width='20%' style="border-radius:50%; border: 1px solid grey;" class="p-1">
+                      {% else %}
+                      <img src="{% static 'images/avatars/avatar1.jpg' %}" alt="Profile picture" width='20%' style="border-radius:50%; border: 1px solid grey;" class="p-1">
+                      {% endif %}
+                      <p class="mb-1"><strong>Email address: </strong> <i>{{userprofile.user.email}}</i></p>
+                      <p class=""><strong>Phone number: </strong>{{userprofile.user.phone_number}}</i></p>
+                      
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+              <!-- row.// -->
+            </div>
+            <!-- card-body .// -->
+  
+            <!-- table-responsive .end// -->
+          </article>
+          <!-- order-group.// -->
+        </main>
+      </div>
+      <!-- row.// -->
+    </div>
+  </section>
+  {% include "includes/js_block.html" %} 
+{% endblock %}

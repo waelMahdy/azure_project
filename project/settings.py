@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kx3!+!t86_sb3i@dxpktxtqx$6(%!m3t0&u=$j(q36er0s6)mr
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+AUTH_USER_MODEL='accounts.Account'
 
 # Application definition
 
@@ -37,8 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store'
+    'store',
+    'imagekit',
+    'rest_framework',
+    'accounts',
+    'carts',
+    'orders',
+    'taggit', 
+    'social_django',   
+
 ]
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+
+    
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -63,6 +77,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'project.context_processors.get_categories',
+                'project.context_processors.get_cart_count',
+                'project.context_processors.get_cart_items',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -140,3 +158,28 @@ MEDIA_ROOT=BASE_DIR /'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS={
+   messages.DEBUG: 'alert-info',
+   messages.INFO: 'alert-info',
+   messages.SUCCESS:'alert-success',
+   messages.WARNING:'alert-warning',
+   messages.ERROR: 'alert-danger',
+}
+# SMTP configuration
+
+EMAIL_HOST='smtp.mail.yahoo.com'
+EMAIL_HOST_USER='wael_mahdy001@yahoo.com'
+EMAIL_HOST_PASSWORD='pgzsftvroibkolld'
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY="896618593458-fu5bgtu85qj1u10nfe52ic9glolhfo97.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET ="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"

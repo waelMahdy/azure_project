@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><!--<![endif]-->
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta name="author" content="themesflat.com">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/bootstrap.css' %}" >
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/custom.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/responsive.css' %}">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/colors/color1.css' %}" id="colors">
+
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/animate.css' %}">
+
+    <!-- Favicon and touch icons  -->
+    <link href="{% static 'images/logo@2x.png' %}" rel="shortcut icon">
+    <script src="{% static 'javascript/wow.min.js' %}"></script>
+
+    <!--[if lt IE 9]>
+        <script src="javascript/html5shiv.js"></script>
+        <script src="javascript/respond.min.js"></script>
+    <![endif]-->
+</head> 
+<body class="header_sticky header-style-1 has-menu-extra">
+	<!-- Preloader -->
+    <div id="loading-overlay">
+        <div class="loader"></div>
+    </div>
+    <div class="boxed">
+        {% include "includes/navbar.html" %}
+        {%block content %}
+        
+         {%endblock%}
+
+    </div>   
+    
+
+ <!-- Footer -->
+ {% include "includes/footer.html" %}
+ <!-- /.footer --> 
+<!-- Javascript -->
+<script src="{% static 'javascript/jquery.min.js' %}"></script>
+<script src="{% static 'javascript/tether.min.js' %}"></script>
+<script src="{% static 'javascript/bootstrap.min.js' %}"></script> 
+<script src="{% static 'javascript/jquery.easing.js' %}"></script>    
+<script src="{% static 'javascript/parallax.js' %}"></script>
+<script src="{% static 'javascript/jquery-waypoints.js' %}"></script>
+<script src="{% static 'javascript/jquery-countTo.js' %}"></script>
+<script src="{% static 'javascript/jquery.countdown.js' %}"></script>
+<script src="{% static 'javascript/jquery.flexslider-min.js' %}"></script>
+<script src="{% static 'javascript/images-loaded.js' %}"></script>
+<script src="{% static 'javascript/jquery.isotope.min.js' %}"></script>
+<script src="{% static 'javascript/magnific.popup.min.js' %}"></script>
+<script src="{% static 'javascript/jquery.hoverdir.js' %}"></script>
+<script src="{% static 'javascript/owl.carousel.min.js' %}"></script>
+<script src="{% static 'javascript/equalize.min.js' %}"></script>
+<script src="{% static 'javascript/gmap3.min.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+<script src="{% static 'javascript/jquery-ui.js' %}"></script>
+
+<script src="{% static 'javascript/jquery.cookie.js' %}"></script>
+<script src="{% static 'javascript/main.js' %}"></script>
+
+<!-- Revolution Slider -->
+<script src="{% static 'rev-slider/js/jquery.themepunch.tools.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/jquery.themepunch.revolution.min.js' %}"></script>
+<script src="{% static 'javascript/rev-slider.js' %}"></script>
+<!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->  
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.actions.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.migration.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+<script src="{% static 'rev-slider/js/extensions/revolution.extension.video.min.js' %}"></script>
+
+
+           
+</body> 
+</html>       

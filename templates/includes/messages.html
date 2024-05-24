@@ -1,0 +1,16 @@
+{% if messages %}
+<ul class="messages" id="message" style="list-style-type: none">
+    {% for message in messages %}
+    <li{% if message.tags %} class="alert {{ message.tags }} alert-dismissable" {% endif %} >
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}    
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<script>
+    setTimeout(function () {
+    $("#message").fadeOut("slow")
+}, 4000);
+</script>

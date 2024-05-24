@@ -1,0 +1,154 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% comment %} <script src="{% static 'javascript/swl.js' %}"></script> {% endcomment %}
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script >
+    window.onload = function() {
+        // Your code here
+       
+        if( {{cart_count}}==0){
+            $('#counter').text(0);
+
+            
+
+        }else{
+            $('#counter').text({{cart_count}}); 
+            
+         
+        };
+    };
+    function toggleSelectionColors(optionValue) {
+        const option = document.querySelector(`#id_colors option[value="${optionValue}"]`);
+        option.selected = !option.selected;
+        butt=document.getElementById(optionValue);
+        butt.classList.add("selected");
+        
+    }
+    function toggleSelectionSizes(optionValue) {
+        const option = document.querySelector(`#id_sizes option[value="${optionValue}"]`);
+        option.selected = !option.selected;
+        butt=document.getElementById(optionValue);
+        butt.classList.add("selected");
+    }
+    $(document).ready(function () {
+        // catch the form's submit event
+       
+        $('.add').submit(function (event) {
+            event.preventDefault();
+            // create an AJAX call
+            var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+            var name=$('input[name="name"]').val();
+            $.ajax({
+                type:'POST',
+                data: $(this).serialize(), // get the form data
+                url: "{% url 'add_item_html'  %}",
+                headers: { 'X-CSRFToken': csrfToken },
+                // on success
+                success: function (response) {
+                    if (response.success == true) {
+                        
+                        swal({
+                            title: "Good job!",
+                            text: name+ " added to cart!",
+                            icon: "success",
+                            button: "Ok !",
+                          });
+                          $("#car").load(window.location.href + " #car");
+                         
+                          $('#counter').text(response.counter.cart_count);
+                          if(response.counter.cart_count==0){
+                            location.reload();
+                          };
+                          
+                          
+            
+                    }
+                    else {
+                        swal({
+                            title: "Good job!",
+                            text:" Something went wrong, try again later!",
+                            icon: "error",
+                            button: "Ok !",
+                          });
+                    }
+                },
+                // on error
+                error: function (response) {
+                    // alert the error if any error occured
+                    console.log(response);
+                  
+                        swal({
+                            title: "Good job!",
+                            text:" Something went wrong, try again later!",
+                            icon: "error",
+                            button: "Ok !",
+                          });
+                    
+                }
+            });
+            return false;
+        });
+    
+        // $('.size').on('change', function() { 
+            
+        //     $.ajax({
+        //         type:'GET',
+        //         // data: {products:$(this).attr('data-used'),size:$(this).attr('value')}, // get the form data
+        //         url: $(this).attr('data-url'), // the endpoint
+
+        //         // on success
+        //         success: function (response) {
+        //             window.location.reload();
+        //             // if (response.success == true) {
+                        
+        //             //     swal({
+        //             //         title: "Good job!",
+        //             //         text: name+ " added to cart!",
+        //             //         icon: "success",
+        //             //         button: "Ok !",
+        //             //       });
+                          
+                       
+                                                   
+            
+        //             // }
+        //             // else {
+        //             //     swal({
+        //             //         title: "Good job!",
+        //             //         text:" Something went wrong, try again later!",
+        //             //         icon: "error",
+        //             //         button: "Ok !",
+        //             //       });
+        //             // }
+        //         },
+        //         // on error
+        //         error: function (response) {
+        //             // alert the error if any error occured
+        //             console.log(response);
+                  
+        //                 swal({
+        //                     title: "Good job!",
+        //                     text:" Something went wrong, try again later!",
+        //                     icon: "error",
+        //                     button: "Ok !",
+        //                   });
+                    
+        //         }
+        //     });
+        //     return false;
+        // });
+        });
+ 
+
+    
+</script>
+<script>
+  
+    $('.colored').each(function() {
+      $(this).css('background-color', $(this).val());
+    });
+  </script>
+ <script>
+    new WOW().init();
+</script>
