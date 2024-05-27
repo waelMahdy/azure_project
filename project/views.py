@@ -31,3 +31,9 @@ def home(request):
         }
 
     return render(request,'home/home.html',context)
+
+def contact(request):
+    return render(request,'home/contact.html')
+
+def comming_soon(request):
+    return render(request,'home/comming_soon.html')

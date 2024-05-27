@@ -109,15 +109,12 @@
                             <a href="{% url 'shop' %}">SHOP</a>
                            
                         </li>
-                        <li>
-                            <a href="coming-soon.html">PAGE</a>
+                        <li class="{% if '/comming_soon/' in request.path %}active{% endif %}">
+                            <a href="{% url 'comming_soon' %}">PAGE</a>
                         </li>
-                        <li >
-                            <a href="blog-list.html">BLOG</a>
-                            
-                        </li>
-                        <li>
-                            <a href="contact.html">CONTACT</a>
+
+                        <li class="{% if '/contact/' in request.path %}active{% endif %}">
+                            <a href="{% url 'contact' %}">CONTACT</a>
                             
                            
                         </li>

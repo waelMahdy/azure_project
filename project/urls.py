@@ -23,6 +23,8 @@ from project import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('contact/', views.contact, name='contact'),
+    path('comming_soon/', views.comming_soon, name='comming_soon'),
     path('store/', include('store.urls')),
     path('accounts/', include('accounts.urls')),
     path('carts/', include('carts.urls')),
