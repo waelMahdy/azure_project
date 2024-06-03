@@ -40,4 +40,3 @@ input:checked + label:hover , input:checked  ~ label:hover ,input:checked ~label
     border:1px solid black;
     padding:1px ;
 }
-

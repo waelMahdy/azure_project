@@ -3,8 +3,10 @@
 @media only screen and (max-width: 1366px) {
 
 	.instagram-wrap.style-1 .text-wrap {
+
 		left: 0%;
 	}
+
 
 	.instagram-wrap.style-1 .themesflat-button {
 		line-height: normal;
@@ -74,11 +76,13 @@
 	.switcher-container {
 		display: none;
 	}
-
 	.header-style-2 #site-header-inner {
 		padding: 20px 0px;
 	}
-
+	.navend
+    {
+		display:block !important;
+	} 
 	.mobile-button {
 		display: block;
 	}

@@ -118,6 +118,16 @@
                             
                            
                         </li>
+                       
+                        <li class="{% if '/accounts/' in request.path %}active{% endif %} navend" style="display: none;">
+                            <a href="{% url 'dashboard' %}">Account</a>
+                        </li>
+
+                        <li class="{% if '/carts/' in request.path %}active{% endif %} navend" style="display: none;">
+                            <a href="{% url 'cart' %}">Shopping Cart</a>
+                                                      
+                        </li> 
+                                      
                         {% if user.is_authenticated %}
                         <li>
                             <div class="subtitle">Welcome {{user.first_name}}</div>
@@ -125,6 +135,7 @@
                            
                         </li>
                         {% endif %}
+    
                     </ul>
                 </nav><!-- /.mainnav -->
             </div><!-- /.nav-wrap -->
