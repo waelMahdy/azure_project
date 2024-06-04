@@ -3,12 +3,12 @@
 {% block title %}Cart page{% endblock %}
 {% block content %}
 <section class="section-content padding-y bg">
-    <div class="container">
+    <div class="container" style="min-height: 50vh;">
 
         <!-- ============================ COMPONENT 1 ================================= -->
         {% if not cart_items %}
-        <h2 class='text-center mt-lg-5'>Your shopping cart is empty !! </h2>
-        <div class="text-center">
+        <h2 class='text-center m-5'>Your shopping cart is empty !! </h2>
+        <div class="text-center mt-lg-5">
             <a href="{% url 'shop' %}" class="btn btn-primary mt-lg-5">Continue shopping</a>
         </div>
         {% else %}
